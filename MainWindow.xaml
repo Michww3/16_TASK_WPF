@@ -1,0 +1,17 @@
+﻿<Window x:Class="_16_TASK_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_16_TASK_WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TextBox x:Name="Text_Info" TextWrapping="Wrap" Text="TextBox" Height="287" RenderTransformOrigin="0.497,0.524" VerticalAlignment="Top" TextAlignment="Center"/>
+        <Button x:Name="Button_Install" Content="Установка" HorizontalAlignment="Left" Margin="70,349,0,0" VerticalAlignment="Top" Height="49" Width="83" Click="Button_Install_Click" RenderTransformOrigin="0.639,0.307"/>
+        <Button x:Name="Button_Unistall" Content="Деинсталяция" HorizontalAlignment="Left" Margin="255,349,0,0" VerticalAlignment="Top" Height="49" Width="83" Click="Button_Unistall_Click"/>
+        <Button x:Name="Button_Start_Serv" Content="Старт службы" HorizontalAlignment="Left" Margin="456,349,0,0" VerticalAlignment="Top" Height="49" Width="84" Click="Button_Start_Serv_Click"/>
+        <Button x:Name="Button_Stop_Serv" Content="Остановка службы" HorizontalAlignment="Left" Margin="646,349,0,0" VerticalAlignment="Top" Height="49" Width="83" Click="Button_Stop_Serv_Click"/>
+
+    </Grid>
+</Window>
