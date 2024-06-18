@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ServiceProcess;
 using System.Diagnostics;
+using System.Windows.Threading;
+using System.IO;
 
 namespace _16_TASK_WPF
 {
@@ -22,6 +24,7 @@ namespace _16_TASK_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        DispatcherTimer timer = new DispatcherTimer();
         private ServiceController myService;
         private string serviceName = "MonitorService";
         private string serviceExecutablePath = @"D:\С#\PRACTICE\16_TASK_SERV\bin\Debug\net8.0\16_TASK_SERV.exe";
@@ -31,6 +34,7 @@ namespace _16_TASK_WPF
             InitializeComponent();
             myService = new ServiceController(serviceName);
             UpdateServiceInfo();
+            StartTimer();
         }
 
         private void UpdateServiceInfo()
@@ -51,7 +55,7 @@ namespace _16_TASK_WPF
             Process.Start(new ProcessStartInfo
             {
                 FileName = "cmd.exe",
-                Verb = "runas", // запуск с правами администратора
+                Verb = "runas", 
                 Arguments = $"/C sc create {serviceName} binPath= \"{serviceExecutablePath}\" start= auto",
                 WindowStyle = ProcessWindowStyle.Hidden
             });
@@ -63,7 +67,7 @@ namespace _16_TASK_WPF
             Process.Start(new ProcessStartInfo
             {
                 FileName = "cmd.exe",
-                Verb = "runas", // запуск с правами администратора
+                Verb = "runas",
                 Arguments = $"/C sc delete {serviceName}",
                 WindowStyle = ProcessWindowStyle.Hidden
             });
@@ -82,6 +86,19 @@ namespace _16_TASK_WPF
             myService.Stop();
             myService.WaitForStatus(ServiceControllerStatus.Stopped);
             UpdateServiceInfo();
+        }
+
+        private void StartTimer()
+        {
+            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            TextFromFile.Text = File.ReadAllText("C:\\Users\\User\\Desktop\\Service.txt");
         }
     }
 }
